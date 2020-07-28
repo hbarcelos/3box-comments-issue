@@ -10,6 +10,8 @@ I set a minium reproduceable example with 3 different bundling options:
 
 ## Running
 
+After cloning this repo, run `yarn` at its top-level directory.
+
 ### `create-react-app`
 
 ```sh
