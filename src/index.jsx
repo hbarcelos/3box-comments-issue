@@ -7,22 +7,27 @@ import Box from "3box";
 const web3 = new Web3(window.ethereum);
 
 function App() {
-  const opts = {
-    adminEthAddr: "0x0000000000000000000000000000000000000000",
-    ethereum: web3.currentProvider,
-    spaceName: "3box-labs",
-  };
-  const { box } = use3Box(opts);
+  const [box, setBox] = React.useState({});
   const address = useAddress(web3);
 
+  const handleLogin = React.useCallback(async () => {
+    const box = await Box.openBox(address, web3.currentProvider, {});
+    box.onSyncDone(() => setBox(box));
+
+    setBox(box);
+  }, [address]);
+
   return (
-    box &&
     address && (
       <ThreeBoxComments
-        {...opts}
+        spaceName="thisissometest1234"
         threadName="test"
+        adminEthAddr="0xceB4c079Dd21494E0bc99DA732EAdf220b727389"
+        ethereum={web3.currentProvider}
         box={box}
         currentUserAddr={address}
+        // Required prop for context B)
+        loginFunction={handleLogin}
       />
     )
   );
@@ -33,8 +38,9 @@ function useAddress(web3) {
 
   React.useEffect(() => {
     async function getAddress() {
-      const [account] = web3.eth.getAccounts();
-      setAddress(account);
+      await web3.currentProvider.enable();
+      const accounts = await web3.eth.getAccounts();
+      setAddress(accounts[0]);
     }
 
     getAddress();
@@ -43,23 +49,5 @@ function useAddress(web3) {
   return address;
 }
 
-function use3Box({ adminEthAddr, ethereum, spaceName, spaceOpts }) {
-  const box = React.useRef(null);
-  const space = React.useRef(null);
-
-  React.useEffect(() => {
-    async function createBox() {
-      box.current = await Box.openBox(adminEthAddr, ethereum);
-      space.current = await box.openSpace(spaceName, spaceOpts);
-    }
-
-    createBox();
-  }, [adminEthAddr, ethereum, spaceName, spaceOpts]);
-
-  return {
-    box: box.current,
-    space: space.current,
-  };
-}
 
 render(<App />, document.querySelector("#root"));
