@@ -1,0 +1,20 @@
+{
+  "name": "3box-labs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel src/index.html"
+  },
+  "dependencies": {
+    "3box-comments-react": "^3.0.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "web3": "1.2.6"
+  },
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-plugin-react": "^7.20.4",
+    "parcel": "^1.12.4"
+  }
+}
