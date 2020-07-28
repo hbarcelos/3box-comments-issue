@@ -3,18 +3,21 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "example-parcel",
+    "example-create-react-app",
+    "example-webpack"
+  ],
   "scripts": {
-    "start": "parcel src/index.html"
-  },
-  "dependencies": {
-    "3box-comments-react": "^3.0.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "web3": "1.2.6"
+    "example-create-react-app": "SKIP_PREFLIGHT_CHECK=true yarn workspace example-create-react-app start",
+    "example-parcel": "yarn workspace example-parcel start",
+    "example-webpack": "yarn workspace example-webpack start"
   },
   "devDependencies": {
     "eslint": "^7.5.0",
     "eslint-plugin-react": "^7.20.4",
-    "parcel": "^1.12.4"
+    "webpack": "^4.44.0",
+    "webpack-cli": "^3.3.12"
   }
 }
